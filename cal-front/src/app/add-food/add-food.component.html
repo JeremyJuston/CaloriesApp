@@ -1,0 +1,20 @@
+<h2>Ajouter de la nourriture</h2>
+
+<div class="row py-3 justify-content-center">
+    
+    <mat-form-field  class="date-picker" appearance="outline">
+        <input matInput placeholder="JJ/MM/AAAA" formControlName="date" [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Nourriture" formControlName="foodType">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="number" placeholder="Quantité (g)" formControlName="foodQty">
+    </mat-form-field>
+    
+      
+</div>

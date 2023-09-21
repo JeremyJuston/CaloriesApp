@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from back import foods
 
 #app = Flask(__name__, template_folder="../ng-aram-app/src", static_folder="../ng-aram-app/dist/ng-aram-app")
@@ -19,6 +19,16 @@ def not_found_error(error):
 def get_data():
     data = foods.get_foods_list()
     return data
+
+@app.route('/add_food', methods=['POST'])
+def add_food():
+    data = request.json
+    food = data.get('food')
+
+    foods.add_food(food)
+
+    return jsonify({"message": "Food added successfully"})
+
 
 
 if __name__ == "__main__":

@@ -14,4 +14,7 @@ export class AppComponent {
     this.router.navigate(['/add-food']);
   }
 
+  redirectToRecap() {
+    this.router.navigate(['/recap']);
+  }
 }

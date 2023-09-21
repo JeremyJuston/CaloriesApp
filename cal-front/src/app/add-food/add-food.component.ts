@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
-import * as Papa from 'papaparse';
 import { Observable, map, startWith } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-food',
@@ -19,7 +19,7 @@ export class AddFoodComponent {
 
   filteredFoods!: Observable<Food[]>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
     this.foodForm = new FormGroup({
       date: new FormControl<string>('', Validators.required),
       foodType: new FormControl<string>('', Validators.required),
@@ -67,7 +67,28 @@ export class AddFoodComponent {
   };
 
   addFood() {
+    const date = this.foodForm.controls['date'].value;
+    const foodType = this.foodForm.controls['foodType'].value;
+    const foodQty = this.foodForm.controls['foodQty'].value;
 
+    if (foodType != '' && foodType != null &&
+        foodQty != '' && foodQty != null &&
+        date != '' && date != null) {
+
+      const formattedDate = this.datePipe.transform(date, 'dd/MM/yy');
+      console.log(formattedDate);
+
+      const food = [formattedDate, foodType, foodQty];
+
+      fetch('/add_food', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ food }),
+      })
+
+    }
   }
 }
 

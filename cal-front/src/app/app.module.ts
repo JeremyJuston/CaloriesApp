@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { RecapComponent } from './recap/recap.component';
+import { DatePipe } from '@angular/common';
+import { NgChartsModule, NgChartsConfiguration } from 'ng2-charts';
+
 
 const appDateFormat = {
   parse: {
@@ -44,12 +47,14 @@ const appDateFormat = {
     MatOptionModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule,
   ],
   exports: [
     MatDatepickerModule
   ],
   providers: [
+    DatePipe,
     {
       provide: MAT_DATE_FORMATS,
       useValue: appDateFormat
